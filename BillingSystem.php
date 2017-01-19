@@ -24,9 +24,37 @@ class BillingSystem {
 	function settingPage() {		
 	?>	
 		<div class="wrap">
-			<h1>Billing System Settings.</h1>			
-		</div>
+			<h1>Billing System Members.</h1>			
+			<?php //echo do_shortcode("[ultimatemember form_id=20569]");?>
+			
+			<?php
+				$blogusers = get_users( );
+				echo '<table style="text-align: center; width: 100%;" border=1>
+								<thead>
+									<tr>
+										<th>User ID</th>
+										<th>Username</th>
+										<th>Email</th>
+										<th>Commission</th>
+									</tr>	
+								</thead>
+								<tbody>';
+				foreach ( $blogusers as $user ) {
+					if(in_array('instructor', $user->roles)){
+						echo '<tr style="text-align: center;">';
+							echo	'<td>'.esc_html( $user->ID ).'</td>';
+							echo	'<td>'.esc_html( $user->display_name ).'</td>';
+							echo	'<td>'.esc_html( $user->user_email ).'</td>';
+							echo	'<td>10%</td>';
+						echo '</tr>';	
+					}					
+				}
+				echo '</tbody>
+						</table>';
+			?>
+		</div>		
 	<?php
+		
 	}
 
 }//** Class ends here. **//
