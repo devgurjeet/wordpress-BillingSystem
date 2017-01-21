@@ -10,6 +10,8 @@ License:
 */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+include('classes/BsUserList.php');
+
 class BillingSystem {
 
 	//** Constructor **//
@@ -18,7 +20,7 @@ class BillingSystem {
 	}
 
 	function addMenu() {
-		add_menu_page( 'Billing System', 'Billing System', 'manage_options', 'billingsystem', array(&$this	, 'settingPage'), 'dashicons-groups', 10 );
+		add_menu_page( 'Billing System', 'Billing System', 'manage_options', 'billingsystem', array(&$this	, 'plugin_homepage'), 'dashicons-groups', 10 );
 	}
 
 	function settingPage() {		
@@ -53,9 +55,23 @@ class BillingSystem {
 						</table>';
 			?>
 		</div>		
-	<?php
-		
+	<?php		
 	}
+
+	function plugin_homepage(){
+        $bsUserList = new BsUserList();
+        $bsUserList->prepare_items();
+        ?>
+            <div class="wrap">
+                <div id="icon-users" class="icon32"></div>
+                <div class="awst_header">
+                    <h2 class="aw_awst_header_h2">Billing System Users</h2>
+                    <div class="clear"></div>
+                </div>
+                <?php $bsUserList->display(); ?>
+            </div>
+        <?php
+    }
 
 }//** Class ends here. **//
 
